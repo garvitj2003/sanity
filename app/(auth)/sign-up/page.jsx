@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDebounceCallback } from "usehooks-ts";
 import { Button } from "../../../@/components/ui/button";
 import { Input } from "../../../@/components/ui/input";
@@ -51,24 +51,6 @@ const Page = () => {
       password: "",
     },
   });
-
-  // useEffect(() => {
-  //   const checkUsernameUnique = async () => {
-  //     if (username) {
-  //       setIsCheckingUsername(true);
-  //       setUsernameMessage(''); // Reset message
-  //       try {
-  //         const response = await axios.get(`/api/check-username-unique?username=${username}`);
-  //         setUsernameMessage(response.data.message);
-  //       } catch (error) {
-  //         setUsernameMessage(error.response?.data.message ?? 'Error checking username');
-  //       } finally {
-  //         setIsCheckingUsername(false);
-  //       }
-  //     }
-  //   };
-  //   checkUsernameUnique();
-  // }, [username]);
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
