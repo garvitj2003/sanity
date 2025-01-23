@@ -4,6 +4,7 @@ import axios from "axios";
 import { platforms, timezones } from "./data";
 import { games } from "../../../games/data/index";
 import { toast } from "sonner";
+import Image from "next/image";
 
 export default function Page() {
   const [selectedPlatform, setSelectedPlatform] = useState("");
@@ -114,7 +115,7 @@ export default function Page() {
           <div className="p-5">
             <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
               {games.map((game, index) => (
-                <img
+                <Image
                   key={game.name}
                   src={game.image}
                   alt={`Game ${game.name + 1}`}

@@ -4,6 +4,7 @@ import axios from "axios";
 import axiosRetry from "axios-retry";
 import { Newspaper, Gamepad2, Trophy, Flame } from "lucide-react";
 import Pacman from "../app/loading";
+import Image from "next/image";
 
 const News = () => {
   const [latestNews, setLatestNews] = useState([]);
@@ -73,7 +74,7 @@ const News = () => {
       }`}
     >
       <div className="absolute inset-0">
-        <img
+        <Image
           src={article.image}
           alt={article.title}
           className="h-full w-full object-cover opacity-40 transition-all group-hover:scale-105 group-hover:opacity-30"
