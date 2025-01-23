@@ -10,7 +10,7 @@ export default function TournamentMatches({ params }) {
 
   useEffect(() => {
     fetchMatches();
-  }, [unwrappedId.id]);
+  }, [unwrappedId.id, fetchMatches]);
 
   const fetchMatches = async () => {
     try {

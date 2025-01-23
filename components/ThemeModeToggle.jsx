@@ -28,7 +28,7 @@ export function ThemeModeToggle() {
     if (theme === "system" && systemTheme) {
       setTheme(systemTheme);
     }
-  }, [theme, systemTheme]);
+  }, [theme, systemThemes, setTheme]);
 
   return (
     <>
