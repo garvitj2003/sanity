@@ -118,12 +118,6 @@ importers:
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
-      framer:
-        specifier: ^2.4.1
-        version: 2.4.1(framer-motion@11.18.0(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.0(react@18.3.0))(react@18.3.0))(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
-      framer-motion:
-        specifier: ^11.17.0
-        version: 11.18.0(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
       html2canvas:
         specifier: 1.4.1
         version: 1.4.1
@@ -140,8 +134,8 @@ importers:
         specifier: 8.9.5
         version: 8.9.5
       motion:
-        specifier: ^11.15.0
-        version: 11.18.0(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
+        specifier: ^11.18.2
+        version: 11.18.2(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
       next:
         specifier: ^15.1.4
         version: 15.1.4(@babel/core@7.26.0)(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
@@ -6920,12 +6914,6 @@ packages:
       }
     engines: { node: ">=6" }
 
-  eventemitter3@3.1.2:
-    resolution:
-      {
-        integrity: sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==,
-      }
-
   events@3.3.0:
     resolution:
       {
@@ -7187,12 +7175,6 @@ packages:
       debug:
         optional: true
 
-  fontfaceobserver@2.3.0:
-    resolution:
-      {
-        integrity: sha512-6FPvD/IVyT4ZlNe7Wcn5Fb/4ChigpucKYSvD6a+0iMoLn2inpo711eyIcKjmDtE5XNcgAkSH9uN/nfAeZzHEfg==,
-      }
-
   for-each@0.3.3:
     resolution:
       {
@@ -7243,6 +7225,23 @@ packages:
       react-dom:
         optional: true
 
+  framer-motion@11.18.2:
+    resolution:
+      {
+        integrity: sha512-5F5Och7wrvtLVElIpclDT0CBzMVg3dL22B64aZwHtsIY8RB4mXICLrkajK4G9R+ieSAGcgrLeae2SeUTg2pr6w==,
+      }
+    peerDependencies:
+      "@emotion/is-prop-valid": "*"
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      "@emotion/is-prop-valid":
+        optional: true
+      react:
+        optional: true
+      react-dom:
+        optional: true
+
   framer-motion@6.5.1:
     resolution:
       {
@@ -7251,16 +7250,6 @@ packages:
     peerDependencies:
       react: ">=16.8 || ^17.0.0 || ^18.0.0"
       react-dom: ">=16.8 || ^17.0.0 || ^18.0.0"
-
-  framer@2.4.1:
-    resolution:
-      {
-        integrity: sha512-kInsb+tmtNEvOeRa8wT2oRAl8Xe1L8ev4ahinB875Xh0zPBLt5Di6fuvBUILnDUU6mqmM+6QPiNxg62Va66V4Q==,
-      }
-    peerDependencies:
-      framer-motion: ^10.13.1
-      react: ^18.2.0
-      react-dom: ^18.2.0
 
   framesync@6.0.1:
     resolution:
@@ -7763,12 +7752,6 @@ packages:
     resolution:
       {
         integrity: sha512-C++tTF1GqkGYecL+2S1wJTfoH6APGAsbb7PAWQ3iVIwgG/EFseAfEVOKFgAFq4yK3+6j1EjUD4UQ9dRJHX/sSQ==,
-      }
-
-  hsluv@0.0.3:
-    resolution:
-      {
-        integrity: sha512-08iL2VyCRbkQKBySkSh6m8zMUa3sADAxGVWs3Z1aPcUkTJeK0ETG4Fc27tEmQBGUAXZjIsXOZqBvacuVNSC/fQ==,
       }
 
   html-encoding-sniffer@4.0.0:
@@ -9297,16 +9280,28 @@ packages:
         integrity: sha512-2wuCie206pCiP2K23uvwJeci4pMFfyQKpWI0Vy6HrCTDzDCer4TsYtT7IVnuGbDeoIV37UuZiUr6SZMHEc1Vww==,
       }
 
+  motion-dom@11.18.1:
+    resolution:
+      {
+        integrity: sha512-g76KvA001z+atjfxczdRtw/RXOM3OMSdd1f4DL77qCTF/+avrRJiawSG4yDibEQ215sr9kpinSlX2pCTJ9zbhw==,
+      }
+
   motion-utils@11.16.0:
     resolution:
       {
         integrity: sha512-ngdWPjg31rD4WGXFi0eZ00DQQqKKu04QExyv/ymlC+3k+WIgYVFbt6gS5JsFPbJODTF/r8XiE/X+SsoT9c0ocw==,
       }
 
-  motion@11.18.0:
+  motion-utils@11.18.1:
     resolution:
       {
-        integrity: sha512-uJ4zNXh/4K9C5wftxHKlXLHC0Rc9dHSHPyO1P6T9XE2bTn2z8C2lOZX/M8vAmFp0gtJTJ3aYkv44lTtJSfv6+A==,
+        integrity: sha512-49Kt+HKjtbJKLtgO/LKj9Ld+6vw9BjH5d9sc40R/kVyH8GLAXgT42M2NnuPcJNuA3s9ZfZBUcwIgpmZWGEE+hA==,
+      }
+
+  motion@11.18.2:
+    resolution:
+      {
+        integrity: sha512-JLjvFDuFr42NFtcVoMAyC2sEjnpA8xpy6qWPyzQvCloznAyQ8FIXioxWfHiLtgYhoVpfUqSWpn1h9++skj9+Wg==,
       }
     peerDependencies:
       "@emotion/is-prop-valid": "*"
@@ -17796,8 +17791,6 @@ snapshots:
 
   event-target-shim@5.0.1: {}
 
-  eventemitter3@3.1.2: {}
-
   events@3.3.0: {}
 
   eventsource@2.0.2: {}
@@ -17930,8 +17923,6 @@ snapshots:
     optionalDependencies:
       debug: 4.4.0
 
-  fontfaceobserver@2.3.0: {}
-
   for-each@0.3.3:
     dependencies:
       is-callable: 1.2.7
@@ -17965,6 +17956,16 @@ snapshots:
       react: 18.3.0
       react-dom: 18.3.0(react@18.3.0)
 
+  framer-motion@11.18.2(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.0(react@18.3.0))(react@18.3.0):
+    dependencies:
+      motion-dom: 11.18.1
+      motion-utils: 11.18.1
+      tslib: 2.8.1
+    optionalDependencies:
+      "@emotion/is-prop-valid": 1.2.2
+      react: 18.3.0
+      react-dom: 18.3.0(react@18.3.0)
+
   framer-motion@6.5.1(react-dom@18.3.0(react@18.3.0))(react@18.3.0):
     dependencies:
       "@motionone/dom": 10.12.0
@@ -17977,17 +17978,6 @@ snapshots:
       tslib: 2.8.1
     optionalDependencies:
       "@emotion/is-prop-valid": 0.8.8
-
-  framer@2.4.1(framer-motion@11.18.0(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.0(react@18.3.0))(react@18.3.0))(react-dom@18.3.0(react@18.3.0))(react@18.3.0):
-    dependencies:
-      "@juggle/resize-observer": 3.4.0
-      eventemitter3: 3.1.2
-      fontfaceobserver: 2.3.0
-      framer-motion: 11.18.0(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
-      hoist-non-react-statics: 3.3.2
-      hsluv: 0.0.3
-      react: 18.3.0
-      react-dom: 18.3.0(react@18.3.0)
 
   framesync@6.0.1:
     dependencies:
@@ -18316,8 +18306,6 @@ snapshots:
       lru-cache: 6.0.0
 
   hotscript@1.0.13: {}
-
-  hsluv@0.0.3: {}
 
   html-encoding-sniffer@4.0.0:
     dependencies:
@@ -19160,11 +19148,17 @@ snapshots:
     dependencies:
       motion-utils: 11.16.0
 
+  motion-dom@11.18.1:
+    dependencies:
+      motion-utils: 11.18.1
+
   motion-utils@11.16.0: {}
 
-  motion@11.18.0(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.0(react@18.3.0))(react@18.3.0):
+  motion-utils@11.18.1: {}
+
+  motion@11.18.2(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.0(react@18.3.0))(react@18.3.0):
     dependencies:
-      framer-motion: 11.18.0(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
+      framer-motion: 11.18.2(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
       tslib: 2.8.1
     optionalDependencies:
       "@emotion/is-prop-valid": 1.2.2
