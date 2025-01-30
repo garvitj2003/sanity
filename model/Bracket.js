@@ -1,5 +1,24 @@
 import mongoose from "mongoose";
 
+const matchSchema = new mongoose.Schema({
+  round: {
+    type: Number,
+    required: true,
+  },
+  team1: {
+    type: String,
+    required: false,
+  },
+  team2: {
+    type: String,
+    required: false,
+  },
+  winner: {
+    type: String,
+    default: true,
+  },
+});
+
 const bracketSchema = new mongoose.Schema({
   tournament_name: {
     type: String,
@@ -29,6 +48,10 @@ const bracketSchema = new mongoose.Schema({
       },
       message: "Number of teams must be at least 4.",
     },
+  },
+  matches: {
+    type: [matchSchema],
+    required: true,
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
