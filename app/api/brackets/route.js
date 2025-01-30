@@ -6,6 +6,35 @@ import Tournament from "../../../model/Tournament";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../lib/authOptions";
 
+export async function GET() {
+  try {
+    await dbConnect();
+
+    const session = await getServerSession(authOptions);
+
+    if (!session || !session.user) {
+      return new NextResponse(
+        JSON.stringify({ success: false, message: "Unauthorized" }),
+        { status: 401 },
+      );
+    }
+
+    const brackets = await Bracket.find({ userId: session.user._id });
+
+    return NextResponse.json(brackets, { status: 200 });
+  } catch (error) {
+    console.error("Error fetching brackets:", error);
+    return new NextResponse(
+      JSON.stringify({
+        success: false,
+        data: [],
+        message: "Error fetching brackets",
+      }),
+      { status: 500 },
+    );
+  }
+}
+
 export async function POST(request) {
   try {
     await dbConnect();
@@ -42,6 +71,8 @@ export async function POST(request) {
       );
     }
 
+    let matches = generateMatches(format, teams, consolationFinal);
+
     console.log("UserId", session.user._id);
 
     const newBracket = new Bracket({
@@ -49,6 +80,7 @@ export async function POST(request) {
       format,
       consolationFinal,
       grandFinalType,
+      matches,
       teams,
       userId,
     });
@@ -72,31 +104,85 @@ export async function POST(request) {
   }
 }
 
-export async function GET() {
-  try {
-    await dbConnect();
+function generateMatches(format, teams, consolationFinal) {
+  let matches = [];
 
-    const session = await getServerSession(authOptions);
+  if (format === "single_elimination") {
+    matches = generateSingleElimination(teams, consolationFinal);
+  } else if (format === "double_elimination") {
+    matches = generateDoubleElimination(teams, consolationFinal);
+  } else if (format === "round_robin") {
+    matches = generateRoundRobin(teams);
+  }
 
-    if (!session || !session.user) {
-      return new NextResponse(
-        JSON.stringify({ success: false, message: "Unauthorized" }),
-        { status: 401 },
-      );
+  return matches;
+}
+
+function generateSingleElimination(teams, consolationFinal) {
+  let round = 1;
+  let matches = [];
+  let currentTeams = [...teams];
+
+  // If the number of teams is odd, add a "BYE" team for the perfect match-up
+  if (currentTeams.length % 2 !== 0) {
+    currentTeams.push("BYE");
+  }
+
+  // Generate rounds until we have 1 winner
+  while (currentTeams.length > 1) {
+    let numMatches = currentTeams.length / 2;
+    let roundMatches = [];
+
+    for (let i = 0; i < numMatches; i++) {
+      const team1 = currentTeams[i * 2];
+      const team2 = currentTeams[i * 2 + 1];
+
+      if (team1 !== "BYE" && team2 !== "BYE") {
+        roundMatches.push({
+          round: round,
+          team1: team1,
+          team2: team2,
+          winner: null, // Winner will be determined later
+        });
+      } else if (team1 === "BYE") {
+        roundMatches.push({
+          round: round,
+          team1: team2,
+          team2: null,
+          winner: team2, // Team 2 wins by default
+        });
+      } else if (team2 === "BYE") {
+        roundMatches.push({
+          round: round,
+          team1: team1,
+          team2: null,
+          winner: team1, // Team 1 wins by default
+        });
+      }
     }
 
-    const brackets = await Bracket.find({ userId: session.user._id });
+    matches.push(...roundMatches);
+    // Update the currentTeams array with the winners of the current round
+    currentTeams = roundMatches.map((match) => match.winner);
 
-    return NextResponse.json(brackets, { status: 200 });
-  } catch (error) {
-    console.error("Error fetching brackets:", error);
-    return new NextResponse(
-      JSON.stringify({
-        success: true,
-        data: [],
-        message: "Error fetching brackets",
-      }),
-      { status: 500 },
-    );
+    round++;
   }
+  // this is for the consolation final where we decide the 3rd place
+  if (consolationFinal && matches.length >= 2) {
+    const semiFinal = [
+      matches[matches.length - 2].team1,
+      matches[matches.length - 2].team2,
+    ];
+
+    matches.push({
+      round: round,
+      team1: semiFinal[0],
+      team2: semiFinal[1],
+    });
+  }
+  return matches;
 }
+
+function generateDoubleElimination(teams, consolationFinal) {}
+
+function generateRoundRobin(teams) {}
