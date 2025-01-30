@@ -26,7 +26,7 @@ export async function GET() {
     console.error("Error fetching brackets:", error);
     return new NextResponse(
       JSON.stringify({
-        success: true,
+        success: false,
         data: [],
         message: "Error fetching brackets",
       }),
@@ -168,7 +168,7 @@ function generateSingleElimination(teams, consolationFinal) {
     round++;
   }
   // this is for the consolation final where we decide the 3rd place
-  if (consolationFinal && matches.lenght >= 2) {
+  if (consolationFinal && matches.length >= 2) {
     const semiFinal = [
       matches[matches.length - 2].team1,
       matches[matches.length - 2].team2,

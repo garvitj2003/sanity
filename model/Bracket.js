@@ -15,7 +15,7 @@ const matchSchema = new mongoose.Schema({
   },
   winner: {
     type: String,
-    default: true,
+    default: "",
   },
 });
 
