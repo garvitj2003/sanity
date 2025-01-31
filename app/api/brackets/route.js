@@ -224,7 +224,7 @@ function generateDoubleElimination(teams, consolationFinal) {
   // find the winner of the grand final
   matches.push(grandFinal);
 
-  if (consolationFinal && grandFinal.winner) {
+  if (consolationFinal) {
     // selecting the loser from the grand final for the 3rd place match
     let winnersBracketFinalLoser =
       winnersMatches[winnersMatches.length - 2].winner === grandFinal.team1
