@@ -191,6 +191,7 @@ export default function Page() {
                         <SelectItem value="double_elimination">
                           Double Elimination
                         </SelectItem>
+                        <SelectItem value="round_robin">Round Robin</SelectItem>
                       </SelectContent>
                     </Select>
                   </FormItem>
