@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 import Tournament from "../../../model/Tournament";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../lib/authOptions";
+import { type } from "os";
 
 export async function GET() {
   try {
@@ -118,6 +119,8 @@ function generateMatches(format, teams, consolationFinal) {
   return matches;
 }
 
+// This function helps to generate the single elimination bracket for first round
+// and for the later rounds we need to generate the matches based on the winner of the previous round
 function generateSingleElimination(teams, consolationFinal) {
   let round = 1;
   let matches = [];
@@ -183,6 +186,71 @@ function generateSingleElimination(teams, consolationFinal) {
   return matches;
 }
 
-function generateDoubleElimination(teams, consolationFinal) {}
+// This function helps for the initail round of the double elimination bracket to generate the matches
+// for later we need to generate the matches based on the winner and loser bracket manually
+function generateDoubleElimination(teams, consolationFinal) {
+  let matches = [];
+  let winnerBracket = [...teams];
+  let loserBracket = [];
+
+  // reusing the single elimination to generating for the winner bracket
+  let winnersMatches = generateSingleElimination(winnerBracket);
+  matches.push(...winnersMatches);
+
+  let losers = {}; // objects which stores the losers data
+
+  winnersMatches.forEach((match) => {
+    if (!losers[match.round]) losers[match.round] = [];
+    if (match.winner)
+      losers[match.round].push(
+        match.team1 === match.winner ? match.team2 : match.team1,
+      );
+  });
+
+  loserBracket = Object.values(losers).flat().filter(Boolean);
+
+  // generate the loser bracket
+  let loserMatches = generateSingleElimination(loserBracket);
+  matches.push(...loserMatches);
+
+  // generate the grand final
+  let grandFinal = {
+    round: Math.max(...matches.map((match) => match.round)) + 1,
+    team1: null, // we need to add the winner of the winner bracket after conducting the winner bracket final
+    team2: null, // we need to add the winner of the loser bracket after conducting the loser bracket final
+    winner: null,
+    type: "grand_final",
+  };
+  // find the winner of the grand final
+  matches.push(grandFinal);
+
+  if (consolationFinal) {
+    // selecting the loser from the grand final for the 3rd place match
+    let winnersBracketFinalLoser =
+      + winnersMatches[winnersMatches.length - 2].winner ?
+      winnersMatches[winnersMatches.length - 2].winner === grandFinal.team1
+        ? winnersMatches[winnersMatches.length - 2].team2
+        : winnersMatches[winnersMatches.length - 2].team1 
+      : null;
+    
+    // selecting the looser from the loser bracket for the 3rd place match
+    let loserBracektFinalLoser =
+      + loserMatches[loserMatches.length - 1].winner ?
+      loserMatches[loserMatches.length - 1].winner === grandFinal.team2
+        ? loserMatches[loserMatches.length - 1].team1
+        : loserMatches[loserMatches.length - 1].team2
+      : null;
+    
+    matches.push({
+      round: grandFinal.round + 1,
+      team1: winnersBracketFinalLoser,
+      team2: loserBracektFinalLoser,
+      winner: null,
+      type: "consolation_final",
+    });
+  }
+
+  return matches;
+}
 
 function generateRoundRobin(teams) {}
