@@ -255,6 +255,18 @@ function generateRoundRobin(teams, consolationFinal) {
   let matches = [];
   let numTeams = teams.length;
   let rounds = numTeams % 2 === 0 ? numTeams - 1 : numTeams; // total rounds decided based on number of teams
+  let standings = {};
+
+  // Initialize standings
+  teams.forEach((team) => {
+    standings[team] = {
+      played: 0,
+      wins: 0,
+      draws: 0,
+      losses: 0,
+      points: 0,
+    };
+  });
 
   let schedule = [...teams]; // to track teams for each round
 
@@ -276,6 +288,7 @@ function generateRoundRobin(teams, consolationFinal) {
           team1: team1,
           team2: team2,
           winner: null,
+          standings: standings,
         });
       }
     }
