@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { cn } from "../../lib/utils";
 
 export function HoverBorderGradient({
@@ -24,7 +23,7 @@ export function HoverBorderGradient({
           "relative bg-background/80 backdrop-blur-md rounded-[inherit] border transition-colors duration-300",
           {
             "border-neutral-700": !hovered,
-            "border-slate-600": hovered,
+            "border-slate-700": hovered,
           },
           className,
         )}
