@@ -38,6 +38,6 @@
     "components/UserProfile.jsx",
     "components/LogoutButton.jsx",
     "components/SkeletonTwo.jsx"
-  ],
+, "app/bracket/page.jsx"  ],
   "exclude": ["node_modules", "dist", "lib"]
 }
