@@ -6,6 +6,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../@/components/ui/select"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useRouter } from "next/navigation"
 
 const tournamentFormSchema = z.object({
   tournamentName: z.string({ required_error: "Please enter a tournament name" }),
@@ -22,6 +23,7 @@ export default function TournamentForm() {
   const [step, setStep] = useState(1)
   const [formData, setFormData] = useState()
   const [teams, setTeams] = useState()
+  const router = useRouter()
 
   const form = useForm({
     resolver: zodResolver(tournamentFormSchema),
@@ -46,7 +48,7 @@ export default function TournamentForm() {
 
   function onTeamNamesSubmit(data) {
     setTeams(data)
-    setStep(3)
+    router.push("/bracket/haha")
   }
 
   return (
@@ -70,35 +72,12 @@ export default function TournamentForm() {
 
             <FormField
               control={form.control}
-              name="gameType"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Game Type</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select game type" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="cs2">Counter-Strike 2</SelectItem>
-                      <SelectItem value="valorant">Valorant</SelectItem>
-                      <SelectItem value="dota2">Dota 2</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
               name="participants"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Number of Participants</FormLabel>
                   <FormControl>
-                    <Input type="number" min={2} placeholder="8" {...field} />
+                    <Input type="number" min={2} placeholder="2" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
