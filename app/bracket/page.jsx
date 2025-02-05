@@ -7,15 +7,18 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import TournamentForm from "../../components/TournamentForm"
+import { TournamentProvider } from "../../context/tournamentContext";
 
 export const BracketPage = () => {
   return (
-    <div className="bg-card border p-4 shadow-md w-3/4 mx-auto rounded-md space-y-6">
+    // <TournamentProvider>
+    <div className="bg-card border border-gray-600 p-4 shadow-md w-3/4 mx-auto rounded-md space-y-6">
       <h1 className="text-2xl font-medium text-center">Create a tournament</h1>
       <div className="">
         <TournamentForm />
       </div>
     </div>
+    // </TournamentProvider>
   )
 }
 
