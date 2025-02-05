@@ -97,13 +97,13 @@ const TournamentCard = ({
   };
 
   return (
-    <div className="bg-gray-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300">
+    <div className="bg-slate-900 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300">
       <div className="relative">
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-10" />
         <span className="absolute top-4 right-4 px-3 py-1 rounded-full text-sm font-medium z-20 text-white ${statusColors[status]}">
           {status}
         </span>
-        <span className="absolute bottom-4 left-4 px-3 py-1 bg-blue-600 rounded-full text-sm font-medium text-white z-20">
+        <span className="absolute bottom-4 left-4 px-3 py-1 bg-violet-600 rounded-full text-sm font-medium text-white z-20">
           {gameType}
         </span>
         <Image
