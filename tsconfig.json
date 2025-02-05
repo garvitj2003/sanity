@@ -19,7 +19,12 @@
     ],
     "types": ["react-reconciler"],
     "target": "ES2017",
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+
+    "baseUrl": ".",  
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": [
     "**/*.js",
@@ -37,7 +42,8 @@
     "model/User.ts",
     "components/UserProfile.jsx",
     "components/LogoutButton.jsx",
-    "components/SkeletonTwo.jsx"
-, "app/bracket/page.jsx"  ],
+    "components/SkeletonTwo.jsx",
+    "app/bracket/page.jsx"
+  ],
   "exclude": ["node_modules", "dist", "lib"]
 }

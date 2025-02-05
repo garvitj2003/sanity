@@ -16,7 +16,7 @@ const TournamentSchema = new Schema(
       required: true,
     },
     gameType: { type: String, enum: ["SQUAD", "SOLO", "DUO"], required: true },
-    gameId: { type: Schema.Types.ObjectId, ref: "Game", required: true },
+    gameId: { type: Schema.Types.ObjectId, ref: "Games", required: true },
     links: Schema.Types.Mixed,
     gameBannerPhoto: String,
     results: [Schema.Types.Mixed],
