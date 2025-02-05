@@ -57,7 +57,7 @@
     "mini-svg-data-uri": "^1.4.4",
     "mongoose": "8.9.5",
     "motion": "^11.18.2",
-    "next": "^15.1.4",
+    "next": "^15.1.6",
     "next-auth": "4.24.11",
     "next-sanity": "^9.8.27",
     "next-themes": "^0.3.0",

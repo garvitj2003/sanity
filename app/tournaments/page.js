@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "../../components/ui/dropdown-menu";
 import { useRouter } from "next/navigation";
+import { motion } from "motion/react";
 
 const TournamentPage = () => {
   const router = useRouter();
@@ -36,15 +37,21 @@ const TournamentPage = () => {
   };
 
   return (
+    <motion.section
+    className="relative flex flex-col "
+    initial={{ opacity: 0, y: 50 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8, delay: 0.4 }}
+  >
     <div className="min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 pt-6">
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 space-y-8 md:space-y-0">
           <div className="flex flex-col">
-            <h1 className="text-5xl font-bold bg-gradient-to-r from-[#4F46E5] to-[#E114E5] bg-clip-text text-transparent pb-3">
+            <h1 className="text-5xl font-semibold bg-gradient-to-r from-[#4F46E5] to-[#E114E5] bg-clip-text text-transparent pb-3">
               Gaming Tournaments
             </h1>
-            <p className="text-gray-400 text-lg max-w-2xl">
+            <p className="text-slate-300 text-lg max-w-2xl">
               Join competitive gaming tournaments, compete with the best, and
               win exciting prizes
             </p>
@@ -55,7 +62,7 @@ const TournamentPage = () => {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="outline"
-                  className="bg-gray-800 hover:bg-gray-700 border-gray-600 text-gray-200 px-6 py-3 rounded-xl flex items-center gap-3 transition-all duration-300 hover:border-blue-500"
+                  className="bg-gray-700 hover:bg-gray-800 border-gray-600 text-gray-200 px-6 py-3 rounded-xl flex items-center gap-3 transition-all duration-300 hover:border-blue-500"
                 >
                   <ListFilter className="w-5 h-5" />
                   Filters
@@ -113,7 +120,7 @@ const TournamentPage = () => {
                       name={filter.name}
                       value={filters[filter.name]}
                       onChange={handleFilterChange}
-                      className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                      className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-200 focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all"
                     >
                       {filter.options.map((option) => (
                         <option key={option.value} value={option.value}>
@@ -138,7 +145,7 @@ const TournamentPage = () => {
 
             <Button
               onClick={() => router.push("/create/tournament")}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-medium transition-all duration-300"
+              className="bg-violet-600 hover:bg-violet-700 text-white px-6 py-3 rounded-xl font-medium transition-all duration-300"
             >
               Create Tournament
             </Button>
@@ -148,6 +155,7 @@ const TournamentPage = () => {
         <TournamentSection filters={filters} />
       </div>
     </div>
+    </motion.section>
   );
 };
 

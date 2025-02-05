@@ -7,12 +7,23 @@ import {
   CardHeader,
   CardTitle,
 } from "../../components/ui/card";
+import {
+  IconArrowWaveRightUp,
+  IconBoxAlignRightFilled,
+  IconBoxAlignTopLeft,
+  IconClipboardCopy,
+  IconFileBroken,
+  IconSignature,
+  IconTableColumn,
+} from "@tabler/icons-react";
 import Link from "next/link";
 import { Button } from "../../components/ui/button";
 import { client, urlFor } from "../../lib/sanity";
 import Image from "next/image";
 import BlogBanner from "../../components/BlogBanner";
 import BlogOffer from "../../components/BlogOffer";
+import { cn } from "../../@/lib/utils";
+import { BentoGrid, BentoGridItem } from "../../@/components/ui/bento-grid";
 
 export const revalidate = 30;
 
@@ -33,75 +44,79 @@ const getData = async () => {
 const page = async () => {
   const data = await getData();
   return (
-    <div className="px-5 xl:px-[10%] flex flex-col mt-5 gap-7 transition-all">
+    <div className="px-5 xl:px-[10%] flex flex-col gap-7 transition-all">
       <BlogBanner />
-
       <BlogOffer />
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 px-4 sm:px-6 lg:px-8">
-        {data.map((item, idx) => {
-          return (
-            <Card
-              key={idx}
-              className="flex flex-col justify-between border border-gray-700 rounded-lg shadow-md bg-gray-800"
-            >
-              <CardHeader>
-                <Image
-                  src={urlFor(item.titleImage).url()}
-                  alt="title"
-                  width={300}
-                  height={200}
-                  className="object-cover rounded-t-lg h-[200px] w-full"
-                />
-              </CardHeader>
-              <CardContent className="flex flex-col justify-between p-4 h-[260px]">
-                <div className="flex flex-col gap-2">
-                  <CardTitle className="text-xl font-bold text-white line-clamp-2">
-                    {item.title}
-                  </CardTitle>
-                  <CardDescription className="text-sm text-gray-400 line-clamp-3">
-                    {item.smallDescription}
-                  </CardDescription>
-                  <p className="text-xs text-gray-500">
-                    Published: {new Date(item.createdAt).toLocaleDateString()}
-                  </p>
-                  <div className="flex items-center gap-2 mt-2">
-                    {item.tags &&
-                      item.tags.slice(0, 3).map((tag, tagIdx) => (
-                        <span
-                          key={tagIdx}
-                          className="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    {item.tags && item.tags.length > 3 && (
-                      <span className="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded">
-                        +{item.tags.length - 3}
-                      </span>
-                    )}
-                  </div>
-                </div>
 
-                <Button
-                  asChild
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
-                  arial-label="read-more-btn"
-                >
-                  <Link
-                    href={`/blogs/${item.currentSlug}`}
-                    aria-label="read-more"
-                  >
-                    Read More
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-          );
-        })}
-      </div>
+      <BentoGrid className="max-w-4xl mx-auto">
+      {items.map((item, i) => (
+        <BentoGridItem
+          key={i}
+          title={item.title}
+          description={item.description}
+          header={item.header}
+          icon={item.icon}
+          className={i === 3 || i === 6 ? "md:col-span-2" : ""}
+        />
+      ))}
+    </BentoGrid>
     </div>
+
+
+
+
+
   );
 };
 
 export default page;
+
+const Skeleton = () => (
+  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100"></div>
+);
+const items = [
+  {
+    title: "The Dawn of Innovation",
+    description: "Explore the birth of groundbreaking ideas and inventions.",
+    header: <Skeleton />,
+    icon: <IconClipboardCopy className="h-4 w-4 text-neutral-500" />,
+  },
+  {
+    title: "The Digital Revolution",
+    description: "Dive into the transformative power of technology.",
+    header: <Skeleton />,
+    icon: <IconFileBroken className="h-4 w-4 text-neutral-500" />,
+  },
+  {
+    title: "The Art of Design",
+    description: "Discover the beauty of thoughtful and functional design.",
+    header: <Skeleton />,
+    icon: <IconSignature className="h-4 w-4 text-neutral-500" />,
+  },
+  {
+    title: "The Power of Communication",
+    description:
+      "Understand the impact of effective communication in our lives.",
+    header: <Skeleton />,
+    icon: <IconTableColumn className="h-4 w-4 text-neutral-500" />,
+  },
+  {
+    title: "The Pursuit of Knowledge",
+    description: "Join the quest for understanding and enlightenment.",
+    header: <Skeleton />,
+    icon: <IconArrowWaveRightUp className="h-4 w-4 text-neutral-500" />,
+  },
+  {
+    title: "The Joy of Creation",
+    description: "Experience the thrill of bringing ideas to life.",
+    header: <Skeleton />,
+    icon: <IconBoxAlignTopLeft className="h-4 w-4 text-neutral-500" />,
+  },
+  {
+    title: "The Spirit of Adventure",
+    description: "Embark on exciting journeys and thrilling discoveries.",
+    header: <Skeleton />,
+    icon: <IconBoxAlignRightFilled className="h-4 w-4 text-neutral-500" />,
+  },
+];

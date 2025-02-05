@@ -50,9 +50,16 @@ export default function Page() {
   ];
 
   return (
-    <section className="px-[5%] xl:px-[12%] pt-10 pb-20 transition-all">
-      <div className="text-4xl font-semibold mb-10 flex items-center justify-between">
-        <h1>Games</h1>
+    <section className="px-[5%] xl:px-[12%] pt-10 pb-20 transition-all min-h-screen">
+      <div className="text-4xl font-semibold mb-10 flex items-center justify-between ">
+        <div className="flex flex-col gap-2">
+          <h1 className="bg-clip-text  text-transparent bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white">
+            Our Game Collaborations
+          </h1>
+          <p className="text-slate-300 text-lg max-w-2xl">
+            Level up your gaming skills by competing in tournaments
+          </p>
+        </div>
         <Filter filters={filters} containerClasses={`border rounded-2xl`} />
       </div>
 
