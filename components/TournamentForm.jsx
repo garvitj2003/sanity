@@ -17,7 +17,11 @@ const tournamentFormSchema = z.object({
 })
 
 const teamNamesSchema = z.object({
-  teams: z.array(z.string().min(1, "Team name is required")),
+  teams: z.array(z.string().min(1, "Team name is required"))
+    .refine(
+      (teams) => Array.isArray(teams) && new Set(teams).size === teams.length,
+      { message: "Team names must be unique" }
+    ),
 })
 
 export default function TournamentForm() {
@@ -40,6 +44,8 @@ export default function TournamentForm() {
       teams: [],
     },
   })
+
+  const teamsFormError = teamForm.formState.errors.teams?.root?.message;
 
   function onSubmit(data) {
     setFormData(data)
@@ -71,7 +77,7 @@ export default function TournamentForm() {
                 <FormItem>
                   <FormLabel>Tournament Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="CS2 Championship" {...field}  className='border border-gray-600'/>
+                    <Input placeholder="CS2 Championship" {...field} className='border border-gray-600' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -85,7 +91,7 @@ export default function TournamentForm() {
                 <FormItem>
                   <FormLabel>Number of Participants</FormLabel>
                   <FormControl>
-                    <Input type="number" min={2} placeholder="2" {...field}  className='border border-gray-600'/>
+                    <Input type="number" min={2} placeholder="2" {...field} className='border border-gray-600' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -121,7 +127,7 @@ export default function TournamentForm() {
                 <FormItem>
                   <FormLabel>Start Date</FormLabel>
                   <FormControl>
-                    <Input type="date" {...field}  className='border border-gray-600'/>
+                    <Input type="date" {...field} className='border border-gray-600' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -137,6 +143,10 @@ export default function TournamentForm() {
         <Form {...teamForm}>
           <form onSubmit={teamForm.handleSubmit(onTeamNamesSubmit)} className="space-y-6">
             <p className='w-full text-sm text-blue-500 text-center py-4 px-4 bg-bluen-600/5 border border-blue-500/30 rounded-lg'>Note: Team name must be unique</p>
+
+            {teamsFormError && (
+              <p className="text-red-500 text-sm text-center">{teamsFormError}</p>
+            )}
             <div className="grid grid-cols-2 gap-4">
               {teamForm.watch("teams").map((_, index) => (
                 <FormField
