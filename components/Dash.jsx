@@ -83,35 +83,35 @@ const ParallaxImages = () => {
     <div className="mx-auto max-w-6xl px-4 pt-[200px]">
       <ParallaxImg
         src="/para1.jpeg"
-        alt="esports image"
+        alt="Cool Esports image"
         start={-200}
         end={200}
         className="ml-auto w-1/3"
       />
       <ParallaxImg
         src="/para2.jpeg"
-        alt="esports image"
+        alt="Cool Esports image"
         start={-200}
         end={200}
         className="w-1/4"
       />
       <ParallaxImg
         src="/para5.jpeg"
-        alt="esports image"
+        alt="Cool Esports image"
         start={200}
         end={-250}
         className="mx-auto w-2/3"
       />
       <ParallaxImg
         src="/para4.jpeg"
-        alt="esports image"
+        alt="Cool Esports image"
         start={-200}
         end={200}
         className="ml-auto w-1/3"
       />
       <ParallaxImg
         src="/para3.jpeg"
-        alt="esports image"
+        alt="Cool Esports image"
         start={0}
         end={-500}
         className="ml-24 w-5/12"

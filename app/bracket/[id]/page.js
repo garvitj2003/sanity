@@ -1,13 +1,9 @@
 "use client";
-
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+// import Pacman from "../../loading";
+// import { Button } from "../../../components/ui/button";
+// import { useRouter } from "next/navigation";
 import Bracket from "../bracket";
-import { toast } from "sonner";
-import Pacman from "../../loading";
-import { Button } from "../../../components/ui/button";
-import { useRouter } from "next/navigation";
-import BracketComponent from "../bracket";
+// import BracketComponent from "../bracket";
 import { useTournament } from "../../../context/tournamentContext";
 
 
