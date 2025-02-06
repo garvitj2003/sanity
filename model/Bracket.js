@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose =  require("mongoose")
 
 const matchSchema = new mongoose.Schema({
   round: {
@@ -64,5 +64,5 @@ const bracketSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.models.Bracket ||
+module.exports =  mongoose.models.Bracket ||
   mongoose.model("Bracket", bracketSchema);
