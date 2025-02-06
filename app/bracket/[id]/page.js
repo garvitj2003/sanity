@@ -1,21 +1,50 @@
 "use client";
-import Pacman from "../../loading";
-import { Button } from "../../../components/ui/button";
-import { useRouter } from "next/navigation";
-import BracketComponent from "../bracket"
+// import Pacman from "../../loading";
+// import { Button } from "../../../components/ui/button";
+// import { useRouter } from "next/navigation";
+import Bracket from "../bracket";
+// import BracketComponent from "../bracket";
+import { useTournament } from "../../../context/tournamentContext";
 
-export const BracketTemplate = () => {
+
+const DEFAULT_TEAMS = [
+  "Sanity Gaming",
+  "Luminosity Gaming",
+  "True Rippers",
+  "GodLike Esports",
+  "Cloud 9",
+  "Liquid Gaming",
+];
+
+const BracketTemplate = () => {
+  const { tournamentData = {} } = useTournament();
+
+  
+  if (!tournamentData) {
+    return (
+      <div className="w-full flex flex-col gap-8">
+        <h1 className="w-full text-white text-center">Dummy Data</h1>
+        <Bracket
+          teams={DEFAULT_TEAMS}
+          tournament_name="CODM WC"
+          format="single_elimination"
+          consolationFinal={true}
+          grandFinalType="single"
+        />
+      </div>
+    );
+  }
+
   return (
-    <BracketComponent
-      teams={["Sanity Gaming", "Luminosity Gaming", "True Rippers", "GodLike Esports", "Cloud 9", "Liquid Gaming"]}
-      tournament_name="CODM WC"
-      format="single_elimination"
+    <Bracket
+      teams={tournamentData?.teams ?? DEFAULT_TEAMS}
+      tournament_name={tournamentData?.data?.tournamentName ?? "CODM WC"}
+      format={tournamentData?.data?.eliminationType ?? "single_elimination"}
       consolationFinal={true}
       grandFinalType="single"
     />
-  )
-}
-
+  );
+};
 
 // const BracketTemplate = () => {
 //   const [bracket, setBracket] = useState(null);
@@ -65,6 +94,7 @@ export const BracketTemplate = () => {
 //       const response = await fetch(`/api/brackets/${id}`, {
 //         method: "DELETE",
 //       });
+
 //       if (response.ok) {
 //         const data = await response.json();
 //         toast.success("Bracket deleted successfully");
@@ -79,6 +109,7 @@ export const BracketTemplate = () => {
 //       console.error("Unexpected error:", error);
 //     }
 //   };
+
 //   return (
 //     <section className="px-5 xl:px-[10%] mt-[7.6875rem] ">
 //       <header
