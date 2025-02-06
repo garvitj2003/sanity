@@ -57,7 +57,7 @@ export default function TournamentForm() {
 
   function onTeamNamesSubmit(data) {
     setTeams(data)
-    try{
+    try {
       setTournamentData({
         data: formData,
         teams: data.teams
@@ -170,6 +170,9 @@ export default function TournamentForm() {
               ))}
             </div>
             <div className="flex gap-4">
+              {contextError && (
+                <p className="text-red-500 text-sm text-center">{contextError}</p>
+              )}
               <Button type="button" variant="outline" onClick={() => setStep(1)} className="w-full">
                 Back
               </Button>
