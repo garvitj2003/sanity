@@ -69,7 +69,7 @@ const News = () => {
       <div className="w-full flex justify-center h-fit">
         {isLoading ? (
           <div className="flex justify-center items-center h-40">
-            <PacmanLoader color="yellow" />
+            <PacmanLoader color="white" />
           </div>
         ) : error ? (
           <div className="text-center text-red-500 text-base font-semibold">
