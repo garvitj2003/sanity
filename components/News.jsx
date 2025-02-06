@@ -19,7 +19,7 @@ const News = () => {
   useEffect(() => {
     const fetchNews = async (category, setter) => {
       try {
-        const url = `https://gnews.io/api/v4/search?q=${category}&lang=en&country=us&max=10&apikey=6116667592e791bb2e912ebe3a45ad18`;
+        const url = `https://gnews.io/api/v4/search?q=${category}&lang=en&country=us&max=10&apikey=343682f420a275d8051e0d8239cf6f75`;
         const response = await axios.get(url);
 
         if (response.status === 200) {
