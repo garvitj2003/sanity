@@ -221,7 +221,7 @@ const Page = () => {
                       >
                         <FaDiscord className="h-5 w-5" />
                       </Button>
-                      <Button
+                      {/* <Button
                         type="button"
                         variant="default"
                         className="w-full flex gap-4"
@@ -229,7 +229,7 @@ const Page = () => {
                         arial-label="discord-signin-btn"
                       >
                         <FaLinkedin className="h-5 w-5" />
-                      </Button>
+                      </Button> */}
                     </div>
                   </div>
                   <div className="mt-5 text-foreground/80 text-xs text-center text-zinc-400">
