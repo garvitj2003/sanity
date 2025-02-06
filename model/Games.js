@@ -15,6 +15,6 @@ const GamesSchema = new Schema({
   ],
 });
 
-const Games = models.Games || model("Games", GamesSchema);
+const Game = models.Games || model("Games", GamesSchema);
 
-export default Games;
+export default Game;

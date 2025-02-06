@@ -37,7 +37,8 @@
     "model/User.ts",
     "components/UserProfile.jsx",
     "components/LogoutButton.jsx",
-    "components/SkeletonTwo.jsx"
+    "components/SkeletonTwo.jsx",
+    "app/bracket/[id]/page.js"
   ],
   "exclude": ["node_modules", "dist", "lib"]
 }

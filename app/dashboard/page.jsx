@@ -83,7 +83,7 @@ export default function Dashboard() {
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-950">
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-4xl font-bold mb-8 text-white/90">
-          Welcome back, {session.user.username}
+          Welcome back, {session.user.name}
         </h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
