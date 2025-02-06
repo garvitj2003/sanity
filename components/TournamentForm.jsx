@@ -7,16 +7,21 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
+import { useTournament } from '../context/tournamentContext'
 
 const tournamentFormSchema = z.object({
   tournamentName: z.string({ required_error: "Please enter a tournament name" }),
   participants: z.coerce.number().min(2, { message: "Minimum 2 teams are required" }),
-  eliminationType: z.enum(["single", "double"]),
+  eliminationType: z.enum(["single_elimination", "double_elimination"]),
   startDate: z.string({ required_error: "Please enter a start date" })
 })
 
 const teamNamesSchema = z.object({
-  teams: z.array(z.string().min(1, "Team name is required")),
+  teams: z.array(z.string().min(1, "Team name is required"))
+    .refine(
+      (teams) => Array.isArray(teams) && new Set(teams).size === teams.length,
+      { message: "Team names must be unique" }
+    ),
 })
 
 export default function TournamentForm() {
@@ -24,11 +29,13 @@ export default function TournamentForm() {
   const [formData, setFormData] = useState()
   const [teams, setTeams] = useState()
   const router = useRouter()
+  const { setTournamentData } = useTournament();
+  const [contextError, setContextError] = useState(null);
 
   const form = useForm({
     resolver: zodResolver(tournamentFormSchema),
     defaultValues: {
-      eliminationType: "single",
+      eliminationType: "single_elimination",
     },
   })
 
@@ -39,6 +46,8 @@ export default function TournamentForm() {
     },
   })
 
+  const teamsFormError = teamForm.formState.errors.teams?.root?.message;
+
   function onSubmit(data) {
     setFormData(data)
     setStep(2)
@@ -48,7 +57,16 @@ export default function TournamentForm() {
 
   function onTeamNamesSubmit(data) {
     setTeams(data)
-    router.push("/bracket/haha")
+    try {
+      setTournamentData({
+        data: formData,
+        teams: data.teams
+      });
+    } catch (error) {
+      setContextError(error.message)
+      return;
+    }
+    router.push(`/bracket/${formData.tournamentName.toLowerCase().replace(/\s+/g, '-')}`)
   }
 
   return (
@@ -63,7 +81,7 @@ export default function TournamentForm() {
                 <FormItem>
                   <FormLabel>Tournament Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="CS2 Championship" {...field} />
+                    <Input placeholder="CS2 Championship" {...field} className='border border-gray-600' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -77,7 +95,7 @@ export default function TournamentForm() {
                 <FormItem>
                   <FormLabel>Number of Participants</FormLabel>
                   <FormControl>
-                    <Input type="number" min={2} placeholder="2" {...field} />
+                    <Input type="number" min={2} placeholder="2" {...field} className='border border-gray-600' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -92,13 +110,13 @@ export default function TournamentForm() {
                   <FormLabel>Elimination Type</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger className='border border-gray-600'>
                         <SelectValue />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="single">Single Elimination</SelectItem>
-                      <SelectItem value="double">Double Elimination</SelectItem>
+                      <SelectItem value="single_elimination">Single Elimination</SelectItem>
+                      <SelectItem value="double_elimination">Double Elimination</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -113,7 +131,7 @@ export default function TournamentForm() {
                 <FormItem>
                   <FormLabel>Start Date</FormLabel>
                   <FormControl>
-                    <Input type="date" {...field} />
+                    <Input type="date" {...field} className='border border-gray-600' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -128,7 +146,12 @@ export default function TournamentForm() {
       ) : (
         <Form {...teamForm}>
           <form onSubmit={teamForm.handleSubmit(onTeamNamesSubmit)} className="space-y-6">
-            <div className="grid gap-4">
+            <p className='w-full text-sm text-blue-500 text-center py-4 px-4 bg-bluen-600/5 border border-blue-500/30 rounded-lg'>Note: Team name must be unique</p>
+
+            {teamsFormError && (
+              <p className="text-red-500 text-sm text-center">{teamsFormError}</p>
+            )}
+            <div className="grid grid-cols-2 gap-4">
               {teamForm.watch("teams").map((_, index) => (
                 <FormField
                   key={index}
@@ -138,7 +161,7 @@ export default function TournamentForm() {
                     <FormItem>
                       <FormLabel>Team {index + 1}</FormLabel>
                       <FormControl>
-                        <Input placeholder={`Enter team ${index + 1} name`} {...field} />
+                        <Input placeholder={`Enter team ${index + 1} name`} {...field} className="border border-gray-600" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -147,6 +170,9 @@ export default function TournamentForm() {
               ))}
             </div>
             <div className="flex gap-4">
+              {contextError && (
+                <p className="text-red-500 text-sm text-center">{contextError}</p>
+              )}
               <Button type="button" variant="outline" onClick={() => setStep(1)} className="w-full">
                 Back
               </Button>

@@ -70,7 +70,8 @@ const BracketComponent = ({
     window.bracketsViewer.setParticipantImages(
       stageData.participant.map((participant) => ({
         participantId: participant.id,
-        imageUrl: "https://github.githubassets.com/pinned-octocat.svg",
+        // imageUrl: "https://github.githubassets.com/pinned-octocat.svg",
+        imageUrl: "https://seeklogo.com/images/G/github-logo-2E3852456C-seeklogo.com.png",
       })),
     );
 

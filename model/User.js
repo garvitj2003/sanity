@@ -110,4 +110,6 @@ userSchema.pre("remove", async function (next) {
 // Create Model
 const UserModel = models.UserModel || model("UserModel", userSchema);
 
-module.exports = UserModel;
+// module.exports = UserModel;
+
+export { UserModel }
