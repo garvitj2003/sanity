@@ -16,7 +16,7 @@ const DEFAULT_TEAMS = [
   "Liquid Gaming",
 ];
 
-export const BracketTemplate = () => {
+const BracketTemplate = () => {
   const { tournamentData = {} } = useTournament();
 
   

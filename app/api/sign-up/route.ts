@@ -1,6 +1,6 @@
 import { sendVerificationCode } from "../../../components/emails/sendVerificationEmail";
 import dbConnect from "../../../lib/dbConnect";
-import UserModel from "../../../model/User";
+import {UserModel} from "../../../model/User";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
 

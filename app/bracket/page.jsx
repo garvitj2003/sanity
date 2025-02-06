@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import TournamentForm from "../../components/TournamentForm"
 
-export const BracketPage = () => {
+const BracketPage = () => {
   return (
     <div className="bg-card border border-gray-600 p-4 shadow-md w-3/4 mx-auto rounded-md space-y-6">
       <h1 className="text-2xl font-medium text-center">Create a tournament</h1>

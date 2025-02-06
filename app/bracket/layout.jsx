@@ -1,7 +1,7 @@
 'use client'
 import { TournamentProvider } from '../../context/tournamentContext'
 
-export const BracketsLayout = ({children}) => {
+export default function BracketsLayout ({children}) {
   return (
     <TournamentProvider>
     <div>
@@ -10,5 +10,3 @@ export const BracketsLayout = ({children}) => {
     </TournamentProvider>
   )
 }
-
-export default BracketsLayout
