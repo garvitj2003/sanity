@@ -1,3 +1,4 @@
+"use client";
 import Pacman from "../../loading";
 import { Button } from "../../../components/ui/button";
 import { useRouter } from "next/navigation";
@@ -5,7 +6,7 @@ import BracketComponent from "../bracket"
 
 export const BracketTemplate = () => {
   return (
-    <Bracket
+    <BracketComponent
       teams={["Sanity Gaming", "Luminosity Gaming", "True Rippers", "GodLike Esports", "Cloud 9", "Liquid Gaming"]}
       tournament_name="CODM WC"
       format="single_elimination"
