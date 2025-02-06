@@ -55,30 +55,22 @@ const userSchema = new Schema(
     password: {
       type: String,
       default: null,
-      maxlength: [72, "Password too long"], // bcrypt max length
     },
     verifyCode: {
       type: String,
       default: null,
-      maxlength: [32, "Verify code too long"],
     },
     verifyCodeExpiry: {
       type: Date,
       default: null,
-      validate: {
-        validator: function (v) {
-          return !v || v > new Date();
-        },
-        message: "Verify code expiry must be a future date",
-      },
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
     },
     accounts: {
-      type: [
-        {
-          type: Schema.Types.ObjectId,
-          ref: "Account",
-        },
-      ],
+      type: Schema.Types.ObjectId,
+      ref: "Account",
     },
     eventsRegistered: [
       {
@@ -101,7 +93,7 @@ const userSchema = new Schema(
     games: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Games",
+        ref: "Game",
       },
     ],
   },
