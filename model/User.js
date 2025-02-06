@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema, model, models } = mongoose;
 
+// User Schema
 const userSchema = new Schema(
   {
     _id: {
@@ -53,22 +54,30 @@ const userSchema = new Schema(
     password: {
       type: String,
       default: null,
+      maxlength: [72, "Password too long"], // bcrypt max length
     },
     verifyCode: {
       type: String,
-      default: null, 
+      default: null,
+      maxlength: [32, "Verify code too long"],
     },
     verifyCodeExpiry: {
       type: Date,
-      default: null, 
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
+      default: null,
+      validate: {
+        validator: function (v) {
+          return !v || v > new Date();
+        },
+        message: "Verify code expiry must be a future date",
+      },
     },
     accounts: {
-      type: Schema.Types.ObjectId,
-      ref: "Account",
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "Account",
+        },
+      ],
     },
     eventsRegistered: [
       {
@@ -97,16 +106,16 @@ const userSchema = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-// cascade delete accounts when a user is deleted
+// Cascade delete accounts when a user is deleted
 userSchema.pre("remove", async function (next) {
   await mongoose.model("Account").deleteMany({ userId: this._id });
   next();
 });
 
-// exporting the model
+// Create Model
 const UserModel = models.UserModel || model("UserModel", userSchema);
 
 module.exports = UserModel;
