@@ -16,6 +16,6 @@ const GamesSchema = new Schema({
   ],
 });
 
-const Games = models.Games || model("Games", GamesSchema);
+const Game = models.Games || model("Games", GamesSchema);
 
 module.exports =  Games;

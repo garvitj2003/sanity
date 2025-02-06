@@ -48,7 +48,7 @@ const TournamentPage = () => {
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 space-y-8 md:space-y-0">
           <div className="flex flex-col">
-            <h1 className="text-5xl font-semibold bg-gradient-to-r from-[#4F46E5] to-[#E114E5] bg-clip-text text-transparent pb-3">
+            <h1 className="text-4xl md:text-4xl lg:text-5xl font-semibold max-w-7xl pb-2 relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white">
               Gaming Tournaments
             </h1>
             <p className="text-slate-300 text-lg max-w-2xl">

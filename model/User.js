@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+
 const { Schema, model, models } = mongoose;
 
 // User Schema
@@ -108,7 +109,6 @@ const userSchema = new Schema(
     timestamps: true,
   },
 );
-
 // Cascade delete accounts when a user is deleted
 userSchema.pre("remove", async function (next) {
   await mongoose.model("Account").deleteMany({ userId: this._id });
