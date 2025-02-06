@@ -4,7 +4,7 @@ import { createContext, useContext, useState } from "react";
 const TournamentContext = createContext();
 
 export function TournamentProvider({ children }) {
-  const [tournamentData, setTournamentData] = useState(null);
+  const [tournamentData, setTournamentData] = useState({});
   return (
     <TournamentContext.Provider value={{ tournamentData, setTournamentData }}>
       {children}

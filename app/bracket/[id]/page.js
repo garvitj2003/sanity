@@ -7,30 +7,54 @@ import { toast } from "sonner";
 import Pacman from "../../loading";
 import { Button } from "../../../components/ui/button";
 import { useRouter } from "next/navigation";
-import BracketComponent from "../bracket"
+import BracketComponent from "../bracket";
 import { useTournament } from "../../../context/tournamentContext";
 
 export const BracketTemplate = () => {
-   const { tournamentData } = useTournament();
+  const { tournamentData = {} } = useTournament();
+
+  
+  if (!tournamentData) {
+    return (
+      <div className="w-full flex flex-col gap-8">
+        <h1 className="w-full text-white text-center">Dummy Data</h1>
+        <Bracket
+          teams={[
+            "Sanity Gaming",
+            "Luminosity Gaming",
+            "True Rippers",
+            "GodLike Esports",
+            "Cloud 9",
+            "Liquid Gaming",
+          ]}
+          tournament_name="CODM WC"
+          format="single_elimination"
+          consolationFinal={true}
+          grandFinalType="single"
+        />
+      </div>
+    );
+  }
 
   return (
-    // <Bracket
-    //   teams={["Sanity Gaming", "Luminosity Gaming", "True Rippers", "GodLike Esports", "Cloud 9", "Liquid Gaming"]}
-    //   tournament_name="CODM WC"
-    //   format="single_elimination"
-    //   consolationFinal={true}
-    //   grandFinalType="single"
-    // />
-     <Bracket
-      teams={tournamentData.teams ?? ["Sanity Gaming", "Luminosity Gaming", "True Rippers", "GodLike Esports", "Cloud 9", "Liquid Gaming"]}
-      tournament_name={tournamentData.data.tournamentName ?? "CODM WC"}
-      format={tournamentData.data.eliminationType ?? "single_elimination"}
+    <Bracket
+      teams={
+        tournamentData?.teams ?? [
+          "Sanity Gaming",
+          "Luminosity Gaming",
+          "True Rippers",
+          "GodLike Esports",
+          "Cloud 9",
+          "Liquid Gaming",
+        ]
+      }
+      tournament_name={tournamentData?.data?.tournamentName ?? "CODM WC"}
+      format={tournamentData?.data?.eliminationType ?? "single_elimination"}
       consolationFinal={true}
       grandFinalType="single"
     />
-  )
-}
-
+  );
+};
 
 // const BracketTemplate = () => {
 //   const [bracket, setBracket] = useState(null);

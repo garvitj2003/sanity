@@ -30,6 +30,7 @@ export default function TournamentForm() {
   const [teams, setTeams] = useState()
   const router = useRouter()
   const { setTournamentData } = useTournament();
+  const [contextError, setContextError] = useState(null);
 
   const form = useForm({
     resolver: zodResolver(tournamentFormSchema),
@@ -56,13 +57,16 @@ export default function TournamentForm() {
 
   function onTeamNamesSubmit(data) {
     setTeams(data)
-    // console.log(formData)
-    // console.log(data.teams)
-    setTournamentData({
-      data: formData,
-      teams: data.teams
-    })
-    router.push("/bracket/haha")
+    try{
+      setTournamentData({
+        data: formData,
+        teams: data.teams
+      });
+    } catch (error) {
+      setContextError(error.message)
+      return;
+    }
+    router.push(`/bracket/${formData.tournamentName.toLowerCase().replace(/\s+/g, '-')}`)
   }
 
   return (
@@ -157,7 +161,7 @@ export default function TournamentForm() {
                     <FormItem>
                       <FormLabel>Team {index + 1}</FormLabel>
                       <FormControl>
-                        <Input placeholder={`Enter team ${index + 1} name`} {...field} className="border border-gray-700" />
+                        <Input placeholder={`Enter team ${index + 1} name`} {...field} className="border border-gray-600" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
