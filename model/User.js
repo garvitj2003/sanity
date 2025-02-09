@@ -112,4 +112,4 @@ const UserModel = models.UserModel || model("UserModel", userSchema);
 
 // module.exports = UserModel;
 
-export { UserModel }
+export { UserModel };
